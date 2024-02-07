@@ -1,5 +1,6 @@
-import React from 'react'
-import AppBar from '@mui/material/AppBar';
+import React, { useMemo, useState } from 'react'
+// import AppBar from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
@@ -16,6 +17,9 @@ import Button from '@mui/material/Button';
 import Link from 'next/link';
 import AdbIcon from '@mui/icons-material/Adb';
 import assest from '@/json/assest';
+import { createTheme, styled } from '@mui/material';
+import { Brightness4, Brightness7, Home, Menu } from '@mui/icons-material';
+import { ThemeProvider } from '@emotion/react';
 
 interface Props {
     /**
@@ -27,17 +31,52 @@ interface Props {
 
 const drawerWidth = 240;
 const navItems = ['Home', 'Rate', 'Market', 'Exchange'];
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
+
+
 
 export default function Header(props: Props) {
     const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+    // const [mobileOpen, setMobileOpen] = React.useState(false);
 
-    const handleDrawerToggle = () => {
-        setMobileOpen((prevState) => !prevState);
+    // const handleDrawerToggle = () => {
+    //     setMobileOpen((prevState) => !prevState);
+    // };
+    const [open, setOpen] = useState(false);
+    const [dark, setDark] = useState(true);
+
+    const darkTheme = useMemo(
+        () =>
+            createTheme({
+                palette: {
+                    mode: dark ? 'dark' : 'light',
+                },
+            }),
+        [dark]
+    );
+    const handleDrawerOpen = () => {
+        setOpen(true);
     };
 
+
     const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+        <Box onClick={handleDrawerOpen} sx={{ textAlign: 'center' }}>
             <Typography variant="h6" sx={{ mx: 2, my: 2, color: '#ebba34', fontWeight: 'bold' }}>
                 CRYPTO
             </Typography>
@@ -57,17 +96,23 @@ export default function Header(props: Props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
+
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar component="nav" sx={{ backgroundColor: 'white', boxShadow: 'none' }}>
+            <AppBar position='fixed' open={open} sx={{ backgroundColor: 'white', boxShadow: 'none' }}>
                 <Toolbar>
 
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
                         edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
+                        onClick={handleDrawerOpen}
+                        sx={{
+                            mr: 2,
+                            ...(open && {
+                                display: { sm: 'none' }
+                            })
+                        }}
                     >
                         {/* <MenuIcon sx={{ color: 'black' }} /> */}
 
@@ -89,14 +134,17 @@ export default function Header(props: Props) {
                             </Button></Link>
                         ))}
                     </Box>
+                    <IconButton onClick={() => setDark(!dark)}>
+                        {dark ? <Brightness7 sx={{color:'black'}} /> : <Brightness4 />}
+                    </IconButton>
                 </Toolbar>
             </AppBar>
             <nav>
                 <Drawer
                     container={container}
                     variant="temporary"
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
+                    open={open}
+                    onClose={handleDrawerOpen}
                     ModalProps={{
                         keepMounted: true, // Better open performance on mobile.
                     }}

@@ -17,7 +17,7 @@ const rate = () => {
         {
             field: 'id', headerName: 'ID', width: 300,
             renderCell: (params) =>
-                <Link href={`/coindetails/${params.row.id}`}>{params.row.id}</Link>,
+                <Link href={`/${params.row.id}`}>{params.row.id}</Link>,
         },
         {
             field: 'currencySymbol',

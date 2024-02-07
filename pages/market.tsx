@@ -1,6 +1,6 @@
 import { getMareketDetails } from '@/api/functions'
 import { Box, Container } from '@mui/material'
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid'
 import React from 'react'
 import { useQuery } from 'react-query'
 
@@ -15,15 +15,21 @@ const market = () => {
     }
 
     const columns: GridColDef[] = [
-        // {
-        //     field: 'id', headerName: 'Sl No.', width: 30, type:'number'
-        // },
-        { field: 'rank', headerName: 'Rank', width: 30 },
+        {
+            field: 'id',
+            headerName: 'SL No',
+            type: 'number',
+            renderCell: (params) =>
+                params.api.getRowIndexRelativeToVisibleRows(params.row.id) + 1,
+            // renderCell: (params) => params.api.getRowIndex(params.row.id) + 1,
+        },
+
+        { field: 'rank', headerName: 'Rank', width: 30, sortable: true },
         {
             field: 'exchangeId',
             headerName: 'Name',
             width: 110,
-            editable: true,
+            sortable: true,
         },
         {
             field: 'baseSymbol',
@@ -42,21 +48,18 @@ const market = () => {
             field: 'quoteSymbol',
             headerName: 'Quote Symbol',
             type: 'number',
-            // sortable: false,
             width: 160,
         },
         {
             field: 'priceUsd',
             headerName: 'Price (USD)',
             type: 'number',
-            // sortable: false,
             width: 160,
         },
         {
             field: 'priceQuote',
             headerName: 'Quote Price (USD)',
             type: 'number',
-            // sortable: false,
             width: 120,
         },
 
@@ -64,14 +67,12 @@ const market = () => {
             field: 'volumeUsd24Hr',
             headerName: 'Volume in 24Hr (USD)',
             type: 'number',
-            // sortable: false,
             width: 160,
         },
         {
             field: 'tradesCount24Hr',
             headerName: 'Trade Count in 24Hr (USD)',
             type: 'number',
-            // sortable: false,
             width: 160,
         }
     ];
@@ -80,32 +81,35 @@ const market = () => {
         item["index"] = index;
         return (
             item
-        
+
         );
     })
 
     return (
         <div>
-            <Container>
-                <Box sx={{ height: 400, width: '100%' }}>
-                    <DataGrid
-                        columns={columns}
-                        rows={rows as string[]}
-                        getRowId={(row) => row.rank}
-                        initialState={{
-                            pagination: {
-                                paginationModel: {
-                                    pageSize: 5,
+            {data ?
+                <Container>
+                    <Box sx={{ height: 400, width: '100%' }}>
+                        <DataGrid
+                            columns={columns}
+                            rows={rows as string[]}
+                            getRowId={(row) => row.exchangeId}
+                            initialState={{
+                                pagination: {
+                                    paginationModel: {
+                                        pageSize: 10
+                                    },
                                 },
-                            },
-                        }}
-                        pageSizeOptions={[5, 15, 25]}
+                            }}
+                            pageSizeOptions={[5, 15, 25]}
 
-                    />
-                </Box>
-            </Container>
+                        />
+                    </Box>
+                </Container>
+                : <></>}
         </div>
-    )
+    );
 }
 
 export default market
+

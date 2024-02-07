@@ -2,7 +2,7 @@ import { axiosInstance } from '@/api/axiosinstance'
 import { endPoints } from '@/api/endpoints'
 import { getSingleCoin } from '@/api/functions'
 import { SingleCoinRoot } from '@/typescript/interface/singleasset'
-import { Box, Container, TableCell, TableRow } from '@mui/material'
+import { Box, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -79,26 +79,47 @@ const SingleDetails = () => {
         },
     ]
 
-    const rows = data?.id
-    // <TableRow>
-    //     <TableCell component="th" scope="row">
-    //         {data?.rank}
-    //     </TableCell>
-    //     <TableCell align="right">{data?.id}</TableCell>
-    //     <TableCell align="right">{data?.name}</TableCell>
-    //     <TableCell align="right">{data?.symbol}</TableCell>
-    //     <TableCell align="right">{data?.supply}</TableCell>
-    //     <TableCell align="right">{data?.marketCapUsd}</TableCell>
-    //     <TableCell align="right">{data?.priceUsd}</TableCell>
-    //     <TableCell align="right">{data?.volumeUsd24Hr}</TableCell>
-    //     <TableCell align="right">{data?.changePercent24Hr}</TableCell>
-
-    // </TableRow>
-
+    // const rows = data.map((item) => ({ ...item })) as unknown[] as RowData[]
 
     return (
         <div>
-            {data ?
+            <Container>
+                <TableContainer component={Paper}>
+                    <Table aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Rank</TableCell>
+                                <TableCell>Name</TableCell>
+                                <TableCell >Base Symbol</TableCell>
+                                <TableCell>Supply</TableCell>
+                                <TableCell>Pirce (USD)</TableCell>
+                                <TableCell >MarketCap (USD)</TableCell>
+                                <TableCell >Volume in 24Hr (%)</TableCell>
+                                <TableCell >Change in Volume in 24Hr (%)</TableCell>
+
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow
+                                style={{ textDecoration: 'none' }}>
+                                <TableCell>
+                                    {data?.rank}
+                                </TableCell>
+                                <TableCell >{data?.name}</TableCell>
+                                <TableCell >
+                                    {data?.symbol}</TableCell>
+                                <TableCell >{data?.supply}</TableCell>
+                                <TableCell >{data?.priceUsd}</TableCell>
+                                <TableCell >{data?.marketCapUsd}</TableCell>
+                                <TableCell >{data?.volumeUsd24Hr}</TableCell>
+                                <TableCell >{data?.changePercent24Hr}</TableCell>
+                            </TableRow>
+
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
+                {/* {data ?
                 <Container>
                     <Box sx={{ height: 400, width: '100%' }}>
                         <DataGrid
@@ -115,8 +136,10 @@ const SingleDetails = () => {
                         />
                     </Box>
                 </Container>
-                : <></>}
-        </div>
+                : <></>} */}
+            </Container>
+
+        </div >
     );
 }
 

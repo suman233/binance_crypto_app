@@ -1,5 +1,5 @@
 import { getExchangeDetails } from '@/api/functions'
-import { Box, Container } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import Link from 'next/link'
 import React from 'react'
@@ -11,6 +11,9 @@ const exchange = () => {
         queryKey: ["allexchange"],
         queryFn: getExchangeDetails,
     })
+    if (isLoading) return <div><Typography variant='h2' my={5}>Loading...</Typography></div>
+    // else if (!data || !data?.success) return <div>{error?.message}</div>
+    // console.log(data?.exchanges);
 
     const columns: GridColDef[] = [
 
@@ -25,7 +28,7 @@ const exchange = () => {
             field: 'exchangeId', headerName: 'ID',
             width: 160,
             renderCell: (params) =>
-                <Link href={`/${params.row.id}`}>{params.row.id}</Link>,
+                <Link href={`/${params.row.exchangeId}`}>{params.row.exchangeId}</Link>,
         },
         {
             field: 'name',

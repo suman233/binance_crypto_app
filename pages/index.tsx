@@ -1,12 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { Box, Container, Slider } from "@mui/material";
+import { Box, Container, Slider, Typography } from "@mui/material";
 import { getassests } from "@/api/functions";
 import { useQuery } from "react-query";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "next/link";
+import { green, red } from "@mui/material/colors";
 // import styles from "@/styles/Home.module.css";
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -61,6 +64,22 @@ export default function Home() {
       field: 'changePercent24Hr',
       headerName: 'Change Percent in 24Hr (%)',
       width: 170,
+      renderCell: (params) => {
+        return (
+          params.value < 0 ?
+            (
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <ArrowDownwardIcon fontSize="small" sx={{ color: 'red', mr: 1, }} />
+                <Typography >{Math.abs(params.value).toFixed(2)}%</Typography>
+              </Box>)
+            :
+            (
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <ArrowUpwardIcon fontSize="small" sx={{ color: green[500], mr: 1 }} />
+                <Typography >{Math.abs(params.value).toFixed(2)}%</Typography>
+              </Box>)
+        )
+      },
     },
 
     {

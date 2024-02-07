@@ -20,7 +20,9 @@ export default function Home() {
     { field: 'rank', headerName: 'Rank', width: 40 },
 
     {
-      field: 'id', headerName: 'ID', width: 100
+      field: 'id', headerName: 'ID', width: 100,
+      renderCell: (params) =>
+        <Link href={`/coindetails/${params.row.id}`}>{params.row.id}</Link>,
     },
     {
       field: 'name',
@@ -74,9 +76,6 @@ export default function Home() {
     item["index"] = index;
     return (
       item
-      // <>
-      // <Link href={''}>{item}</Link>
-      // </>
     );
   })
 

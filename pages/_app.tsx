@@ -22,6 +22,7 @@ import Link from 'next/link';
 import AdbIcon from '@mui/icons-material/Adb';
 import assest from '@/json/assest';
 import { Brightness4, Brightness7, Home, Menu } from '@mui/icons-material';
+import Header from "@/layout/Header/Header";
 
 interface Props {
   /**
@@ -72,7 +73,7 @@ export default function App({ Component, pageProps }: AppProps) {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerOpen} sx={{ textAlign: 'center' }}>
+    <Box onClick={()=>setOpen(false)} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ mx: 2, my: 2, color: '#ebba34', fontWeight: 'bold' }}>
         CRYPTO
       </Typography>
@@ -98,10 +99,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <Wrapper>
 
 
-
-
-
-
           <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar position='fixed' open={open} sx={{ backgroundColor: 'white', boxShadow: 'none' }}>
@@ -119,7 +116,6 @@ export default function App({ Component, pageProps }: AppProps) {
                     })
                   }}
                 >
-                  {/* <MenuIcon sx={{ color: 'black' }} /> */}
 
                   <img src={assest.logo} alt="logo" height={30} />
 

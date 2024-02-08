@@ -1,5 +1,5 @@
 import { getRateDetails } from '@/api/functions'
-import { Box, Container } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import Link from 'next/link'
 import React from 'react'
@@ -17,7 +17,7 @@ const rate = () => {
         {
             field: 'id', headerName: 'ID', width: 300,
             renderCell: (params) =>
-                <Link href={`/${params.row.id}`}>{params.row.id}</Link>,
+                <Link href={`singlerate/${params.row.id}`}>{params.row.id}</Link>,
         },
         {
             field: 'currencySymbol',
@@ -41,7 +41,7 @@ const rate = () => {
         {
             field: 'type',
             headerName: 'Type',
-            width: 300,
+            width: 200,
             editable: true,
         },
 
@@ -56,6 +56,8 @@ const rate = () => {
 
     return (
         <div>
+            <Typography variant='h4' sx={{textAlign: 'center', my:2}}>Rate Page</Typography>
+
             {data ?
                 <Container>
                     <Box sx={{ height: 400, width: '100%' }}>

@@ -10,7 +10,7 @@ const Wrapper = (props: wrapperProps) => {
 
     return (
         <>
-            <Header />
+            {/* <Header /> */}
             <Box className="body_content">{children}</Box>
             
         </>

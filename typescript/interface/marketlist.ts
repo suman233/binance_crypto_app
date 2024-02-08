@@ -4,6 +4,7 @@ export interface MarketRoot {
   }
   
   export interface Daum {
+    id: number,
     exchangeId: string
     rank: string
     baseSymbol: string

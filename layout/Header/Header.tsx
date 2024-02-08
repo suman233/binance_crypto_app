@@ -135,7 +135,7 @@ export default function Header(props: Props) {
                         ))}
                     </Box>
                     <IconButton onClick={() => setDark(!dark)}>
-                        {dark ? <Brightness7 sx={{color:'black'}} /> : <Brightness4 />}
+                        {dark ? <Brightness7 sx={{ color: 'black' }} /> : <Brightness4 />}
                     </IconButton>
                 </Toolbar>
             </AppBar>

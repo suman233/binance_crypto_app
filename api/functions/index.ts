@@ -24,6 +24,26 @@ export const getSingleCoin = async (id: string) => {
     return data?.data?.data
 }
 
+// export async function getAssetHistory(
+//     id: string | string[] | undefined,
+//     interval: "m1" | "m5" | "m15" | "m30" | "h1 " | "h2" | "h6" | "h12" | "d1"
+// ) {
+//     const res = await axiosInstance.get(
+//         endPoints.fetchedCoinDetails.historydetails(id, interval)
+//     )
+//     return res.data.data.data;
+// }
+
+
+export async function getHistory(
+    id: string | string[] | undefined,
+    interval: "m1" | "m5"| "m15" | "m30" | "h1 "| "h2" | "h6" | "h12" | "d1"
+  ) {
+    const data = await axiosInstance.get(`/v2/assets/${id}/history?interval=${interval}`);
+    return data.data.data;
+  }
+  
+
 export const getRateDetails = async () => {
     const data = await axiosInstance.get<AllRate>(
         endPoints.fetchedrates.rates

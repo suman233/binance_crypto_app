@@ -122,7 +122,7 @@ const exchange = () => {
             <Typography variant='h4' sx={{ textAlign: 'center', my: 2 }}>Exchange Page</Typography>
             {data ?
                 <Container>
-                    <Box sx={{ height: 400, width: '100%' }}>
+                    <Box sx={{ height: 400, width: '100%', backgroundColor: '#ff943975' }}>
                         <DataGrid
                             columns={columns}
                             rows={rows as string[]}

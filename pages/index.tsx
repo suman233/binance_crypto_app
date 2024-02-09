@@ -128,7 +128,7 @@ export default function Home() {
               width: '100%',
               '& .super-app-theme--header': {
                 backgroundColor: 'gray',
-              },
+              }, backgroundColor: '#ff943975'
             }}
           >
             <DataGrid

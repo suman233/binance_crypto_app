@@ -34,7 +34,7 @@ const ratedetails = () => {
                                 <TableCell >Rate (USD)</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        <TableBody sx={{backgroundColor: '#5ea7d1'}}>
                             <TableRow>
                                 <TableCell>
                                     {data?.id}

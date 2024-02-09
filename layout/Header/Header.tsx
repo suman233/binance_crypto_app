@@ -20,6 +20,7 @@ import assest from '@/json/assest';
 import { createTheme, styled } from '@mui/material';
 import { Brightness4, Brightness7, Home, Menu } from '@mui/icons-material';
 import { ThemeProvider } from '@emotion/react';
+import { theme } from '@/mui_theme/mui_palette';
 
 interface Props {
     /**
@@ -71,7 +72,7 @@ export default function Header(props: Props) {
         [dark]
     );
     const handleDrawerOpen = () => {
-        setOpen(true);
+        setOpen((prevState) => !prevState);
     };
 
 
@@ -96,69 +97,74 @@ export default function Header(props: Props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
+        <ThemeProvider theme={darkTheme ? darkTheme : theme}>
+            <Box sx={{ display: 'flex' }}>
+                    <CssBaseline />
+                    <AppBar position='fixed' sx={{ backgroundColor: 'white', boxShadow: 'none' }}>
 
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar position='fixed' open={open} sx={{ backgroundColor: 'white', boxShadow: 'none' }}>
-                <Toolbar>
+                        <Toolbar>
+                            <IconButton
+                                color="inherit"
+                                aria-label="open drawer"
+                                edge="start"
+                                onClick={handleDrawerOpen}
+                                sx={{
+                                    mr: 2,
 
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerOpen}
+                                }}
+                            >
+                                {/* <MenuIcon sx={{ color: 'black' }} /> */}
+
+                                <img src={assest.logo} alt="logo" height={30} />
+
+                            </IconButton>
+
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                sx={{ flexGrow: 0, display: { xs: 'none', sm: 'block' }, fontWeight: 'bold', color: '#ebba34', mx: 1 }}
+                            >
+                                CRYPTO
+                            </Typography>
+                            <Box sx={{ display: { xs: 'none', sm: 'block' }, flexGrow:1 }}>
+                                {navItems.map((item) => (
+                                    <Link href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}><Button key={item} sx={{ color: '#000', fontWeight: 'bold', '&:hover': { color: 'brown' } }}>
+                                        {item}
+                                    </Button></Link>
+                                ))}
+                            </Box>
+                            <Box sx={{ flexGrow: 0 }}>
+                                <IconButton onClick={() => setDark(!dark)}>
+                                    {dark ? <Brightness7 sx={{ color: 'black' }} /> : <Brightness4 />}
+                                </IconButton>
+                            </Box>
+
+                        </Toolbar>
+
+                    </AppBar>
+
+
+                <nav>
+                    <Drawer
+                        container={container}
+                        variant="temporary"
+                        open={open}
+                        onClose={handleDrawerOpen}
+                        ModalProps={{
+                            keepMounted: true, // Better open performance on mobile.
+                        }}
                         sx={{
-                            mr: 2,
-                            ...(open && {
-                                display: { sm: 'none' }
-                            })
+                            display: { xs: 'block', sm: 'none' },
+                            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                         }}
                     >
-                        {/* <MenuIcon sx={{ color: 'black' }} /> */}
+                        {drawer}
+                    </Drawer>
+                </nav>
+                <Box component="main" sx={{ p: 3 }}>
 
-                        <img src={assest.logo} alt="logo" height={30} />
-
-                    </IconButton>
-
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ flexGrow: 0, display: { xs: 'none', sm: 'block' }, fontWeight: 'bold', color: '#ebba34', mx: 1 }}
-                    >
-                        CRYPTO
-                    </Typography>
-                    <Box sx={{ display: { xs: 'none', sm: 'block' }, }}>
-                        {navItems.map((item) => (
-                            <Link href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}><Button key={item} sx={{ color: '#000', fontWeight: 'bold', '&:hover': { color: 'brown' } }}>
-                                {item}
-                            </Button></Link>
-                        ))}
-                    </Box>
-                    <IconButton onClick={() => setDark(!dark)}>
-                        {dark ? <Brightness7 sx={{ color: 'black' }} /> : <Brightness4 />}
-                    </IconButton>
-                </Toolbar>
-            </AppBar>
-            <nav>
-                <Drawer
-                    container={container}
-                    variant="temporary"
-                    open={open}
-                    onClose={handleDrawerOpen}
-                    ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
-                    }}
-                    sx={{
-                        display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                    }}
-                >
-                    {drawer}
-                </Drawer>
-            </nav>
-            <Box component="main" sx={{ p: 3 }}>
-
+                </Box>
             </Box>
-        </Box>
+        </ThemeProvider >
     );
 }

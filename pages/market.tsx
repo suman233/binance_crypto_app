@@ -117,7 +117,7 @@ const market = () => {
                         height: 400, width: '100%',
                         '& .super-app-theme--header': {
                             backgroundColor: 'gray',
-                        },
+                        }, backgroundColor:'#ff943975'
                     }}>
                         <DataGrid
                             columns={columns}

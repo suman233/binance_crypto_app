@@ -162,7 +162,7 @@ const SingleDetails = () => {
 
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        <TableBody sx={{backgroundColor: '#5ea7d1'}}>
                             <TableRow
                                 style={{ textDecoration: 'none' }}>
                                 <TableCell>
@@ -204,7 +204,7 @@ const SingleDetails = () => {
                                         borderColor: 'primary.light',
                                         '& .MuiDataGrid-cell:hover': {
                                             color: 'primary.main',
-                                        },
+                                        }, backgroundColor: '#ff943975'
                                     }}
                                     initialState={{
                                         pagination: {

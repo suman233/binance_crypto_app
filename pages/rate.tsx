@@ -16,12 +16,14 @@ const rate = () => {
 
         {
             field: 'id', headerName: 'ID', width: 300,
+            headerClassName: 'super-app-theme--header',
             renderCell: (params) =>
                 <Link href={`singlerate/${params.row.id}`}>{params.row.id}</Link>,
         },
         {
             field: 'currencySymbol',
             headerName: 'Currency Symbol',
+            headerClassName: 'super-app-theme--header',
             width: 160,
             editable: true,
             sortable: true
@@ -29,19 +31,23 @@ const rate = () => {
         {
             field: 'symbol',
             headerName: 'Symbol',
+            headerClassName: 'super-app-theme--header',
             width: 160,
             editable: true,
         },
         {
             field: 'rateUsd',
             headerName: 'Rate (USD)',
+            headerClassName: 'super-app-theme--header',
             width: 300,
             editable: true,
         },
         {
             field: 'type',
             headerName: 'Type',
-            width: 200,
+            headerClassName: 'super-app-theme--header',
+            // align: 'center',
+            width: 230,
             editable: true,
         },
 
@@ -56,11 +62,16 @@ const rate = () => {
 
     return (
         <div>
-            <Typography variant='h4' sx={{textAlign: 'center', my:2}}>Rate Page</Typography>
+            <Typography variant='h4' sx={{ textAlign: 'center', my: 2 }}>Rate Page</Typography>
 
             {data ?
                 <Container>
-                    <Box sx={{ height: 400, width: '100%' }}>
+                    <Box sx={{
+                        height: 400, width: '100%',
+                        '& .super-app-theme--header': {
+                            backgroundColor: 'gray',
+                        }, backgroundColor: '#ff943975'
+                    }}>
                         <DataGrid
                             columns={columns}
                             rows={rows as string[]}

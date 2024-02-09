@@ -17,7 +17,7 @@ import Button from '@mui/material/Button';
 import Link from 'next/link';
 import AdbIcon from '@mui/icons-material/Adb';
 import assest from '@/json/assest';
-import { createTheme, styled } from '@mui/material';
+import { AppBar, createTheme, styled } from '@mui/material';
 import { Brightness4, Brightness7, Home, Menu } from '@mui/icons-material';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '@/mui_theme/mui_palette';
@@ -32,23 +32,23 @@ interface Props {
 
 const drawerWidth = 240;
 const navItems = ['Home', 'Rate', 'Market', 'Exchange'];
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    }),
-}));
+// const AppBar = styled(MuiAppBar, {
+//     shouldForwardProp: (prop) => prop !== 'start',
+// })(({ theme, start }) => ({
+//     zIndex: theme.zIndex.drawer + 1,
+//     transition: theme.transitions.create(['width', 'margin'], {
+//         easing: theme.transitions.easing.sharp,
+//         duration: theme.transitions.duration.leavingScreen,
+//     }),
+//     ...(start && {
+//         marginLeft: drawerWidth,
+//         width: `calc(100% - ${drawerWidth}px)`,
+//         transition: theme.transitions.create(['width', 'margin'], {
+//             easing: theme.transitions.easing.sharp,
+//             duration: theme.transitions.duration.enteringScreen,
+//         }),
+//     }),
+// }));
 
 
 

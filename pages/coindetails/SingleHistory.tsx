@@ -15,7 +15,7 @@ interface SingleDataInterface {
 
 const SingleHistory = ({ handleChange, historyData, interval }: any) => {
 
-    const { data, isLoading, isError, error }: any = historyData
+    const { data, isLoading, isError, error }: any = historyData || {}
 
     console.log("history");
 

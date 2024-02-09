@@ -15,7 +15,7 @@ interface SingleDataInterface {
 
 const SingleHistory = ({ handleChange, historyData, interval }: any) => {
 
-    const { data, isLoading, isError, error } = historyData
+    const { data, isLoading, isError, error }: any = historyData
 
     console.log("history");
 
@@ -31,7 +31,7 @@ const SingleHistory = ({ handleChange, historyData, interval }: any) => {
         if (data && !isLoading) {
             let xAxis: number[] = []
             let yAxis: number[] = []
-            data?.map((item: { time: number, priceUsd: String }) => {
+            data?.map((item: { time: any, priceUsd: String }) => {
                 xAxis.push(item.time)
                 yAxis.push(Number(item.priceUsd))
             })

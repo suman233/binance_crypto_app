@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { Box, Container, Slider, Typography } from "@mui/material";
+import { Box, Button, Container, Slider, Typography } from "@mui/material";
 import { getassests } from "@/api/functions";
 import { useQuery } from "react-query";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
 import Link from "next/link";
 import { green, red } from "@mui/material/colors";
 // import styles from "@/styles/Home.module.css";
@@ -13,6 +13,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import dynamic from "next/dynamic";
 import loaderanimate from '@/json/lottie/Loading.json'
 import loaderanimation from '@/json/lottie/LottieLoader.json'
+import { useState } from "react";
 
 const Lottie = dynamic(() => import("lottie-react"));
 
@@ -23,6 +24,8 @@ export default function Home() {
     queryKey: ["coinlists"],
     queryFn: getassests,
   })
+
+  
 
   const columns: GridColDef[] = [
     {
@@ -108,6 +111,7 @@ export default function Home() {
       // sortable: false,
       width: 167,
     },
+  
   ]
 
   const rows = data?.map((item: any, index: number) => {

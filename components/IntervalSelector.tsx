@@ -9,12 +9,12 @@ import { useMemo } from "react";
 import { SelectChangeEvent } from "@mui/material/Select";
 
 interface Selecter {
-  handleChange: any,
+  handleChange: (e : string) => void,
   options: string[],
   interval : string
 }
-function SelectInterval({interval, handleChange} : any) {
-
+function SelectInterval({interval, handleChange} : Selecter) {
+ 
    const options = useMemo(
      () => ["m1", "m5", "m15", "m30", "h1 ", "h2", "h6", "h12", "d1"],
      []

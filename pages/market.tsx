@@ -102,7 +102,7 @@ const market = () => {
         }
     ];
 
-    const rows = data?.map((item: any, index: any) => {
+    const rows = data?.map((item: any, index: number) => {
         item["ownIndex"] = index;
         return item;
     })

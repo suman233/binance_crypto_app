@@ -2,7 +2,7 @@ import { axiosInstance } from '@/api/axiosinstance'
 import { endPoints } from '@/api/endpoints'
 import { getExchangeDetails } from '@/api/functions'
 import { Box, Button, Container, Modal, Typography } from '@mui/material'
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
@@ -32,8 +32,33 @@ const exchange = () => {
     // else if (!data || !data?.success) return <div>{error?.message}</div>
     // console.log(data?.exchanges);
 
-    const columns: GridColDef[] = [
+    // const [open, setOpen] = useState<boolean>(false);
+    // const handleOpen = () => {
+    //     setOpen(true);
+    // };
+    // const handleClose = () => {
+    //     setOpen(false);
+    // };
 
+    // const [exdt, setexdt] = useState("");
+
+    // const getdetails = (id: number) => {
+    //     handleOpen()
+    //     setexdt(id)
+    // }
+
+    // const { data: singleexchange } = useQuery({
+    //     queryKey: ['singledetails', exdt],
+    //     queryFn: async () => {
+    //         const data = await axiosInstance.get(
+    //             endPoints.fetchedexchange.exchangedetails(`${exdt}`)
+    //         )
+    //         console.log(data);
+    //         return data?.data.data
+    //     }
+    // });
+
+    const columns: GridColDef[] = [
         {
             field: 'rank',
             headerName: 'Rank',
@@ -53,10 +78,6 @@ const exchange = () => {
             width: 160,
             editable: true,
             sortable: true,
-            // renderCell: (id: any) => {
-            //     handleOpen()
-            //     setexdt(id)
-            // }
         },
         {
             field: 'percentTotalVolume',
@@ -84,6 +105,15 @@ const exchange = () => {
             renderCell: (params) =>
                 <Link href={`${params.row.exchangeUrl}`}>{params.row.exchangeUrl}</Link>,
         },
+        {
+            field: "action",
+            headerName: "Action",
+            sortable: false,
+            renderCell: ({ row }: Partial<GridRowParams>) =>
+                <Button onClick={() => (row.exchangeId)}>
+                    Show
+                </Button>,
+        },
 
     ]
 
@@ -94,29 +124,7 @@ const exchange = () => {
         );
     })
 
-    // const [openmodal, setOpenModal] = useState(0);
-    // const handleOpen = () => {
-    //     setOpenModal(1);
-    // };
 
-    // const handleClose = () => {
-    //     setOpenModal(0);
-    // };
-
-    // const [exdt, setexdt] = useState("");
-
-    // const getdetails = (id: any) => {
-    //     handleOpen()
-    //     setexdt(id)
-    // }
-
-    // const handleRowClick = (params: any) => {
-    //     handleOpen()
-    //     setexdt(params.row.id)
-    //     alert(`Model code "${params.row.name}"  selected`)
-    // };
-
-    
     return (
         <div>
             <Typography variant='h4' sx={{ textAlign: 'center', my: 2 }}>Exchange Page</Typography>
@@ -141,36 +149,7 @@ const exchange = () => {
                     </Box>
                 </Container>
                 : <></>}
-            {/* <Modal
-                open={openmodal}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Name: {singledata?.name?.toUpperCase()}
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Volume (USD): {singledata?.volumeUsd}
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        TradingPair: {singledata?.tradingPairs}
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ my: 2 }}>
-                        Rate: {Number(singledata?.percentTotalVolume).toFixed(4)}%
-                    </Typography>
-                    <div style={{ display: 'flex' }}>
-                        <Button className={styles.btn_modal} sx={{
-                            textTransform: 'none', mr: 6
-                        }}><Link href={`${singledata?.exchangeUrl}`} style={{ textDecoration: 'none', color: 'white' }}>Show</Link></Button>
-                        <Button onClick={handleClose} className={styles.btn_modal} sx={{
-                            textTransform: 'none'
-                        }}>Close</Button>
-                    </div>
-
-                </Box>
-            </Modal> */}
+            
         </div>
     );
 }

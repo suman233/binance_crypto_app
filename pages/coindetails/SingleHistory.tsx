@@ -4,6 +4,7 @@ import { Box, Container } from '@mui/material';
 import SelectInterval from '../../components/IntervalSelector';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import isEqual from 'react-fast-compare';
 const Graph = dynamic(() => import('./Graph'), {
     ssr: false
 });
@@ -13,7 +14,7 @@ interface SingleDataInterface {
     id: string | string[] | undefined;
 }
 
-const SingleHistory = ({ handleChange, historyData, interval }: any) => {
+const SingleHistory = ({ handleChange, historyData, interval, options }: any) => {
 
     const { data, isLoading, isError, error }: any = historyData || {}
 
@@ -31,7 +32,7 @@ const SingleHistory = ({ handleChange, historyData, interval }: any) => {
         if (data && !isLoading) {
             let xAxis: number[] = []
             let yAxis: number[] = []
-            data?.map((item: { time: any, priceUsd: String }) => {
+            data?.map((item: { time: number, priceUsd: string }) => {
                 xAxis.push(item.time)
                 yAxis.push(Number(item.priceUsd))
             })
@@ -43,7 +44,9 @@ const SingleHistory = ({ handleChange, historyData, interval }: any) => {
             // console.table(yAxis)
         }
 
-    }, [interval, data, isLoading])
+    }, [interval, options, data, isLoading]);
+
+    console.log("interval",interval)
 
     return (
         <Container>
@@ -55,7 +58,7 @@ const SingleHistory = ({ handleChange, historyData, interval }: any) => {
                     paddingBottom: "10px"
                 }}
             >
-                <SelectInterval interval={interval} handleChange={handleChange} />
+                <SelectInterval options={options} interval={interval} handleChange={(v) => handleChange(v)} />
 
                 <Graph xAxis={chartData.xAxis} yAxis={chartData.yAxis} />
 
@@ -64,8 +67,4 @@ const SingleHistory = ({ handleChange, historyData, interval }: any) => {
     );
 }
 
-export default React.memo(SingleHistory, (prevProps, postProps): any => {
-    return (
-        prevProps.id === postProps.id
-    )
-})
+export default React.memo(SingleHistory,isEqual)

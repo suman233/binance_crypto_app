@@ -12,9 +12,9 @@ import { getHistory } from '@/api/functions'
 
 export function getBitcoinHistory(id: string | string[] | undefined, interval: "m1" | "m5" | "m15" | "m30" | "h1 " | "h2" | "h6" | "h12" | "d1" = "d1") {
     const { data, isLoading, error, isError } = useQuery({
-        queryKey: [`assets-${id}-history`],
+        queryKey: [`assets-${id}-history`,interval],
         queryFn: () => getHistory(id, interval),
-        refetchInterval: 1000,
+        // refetchInterval: 1000,
         enabled: id ? true : false,
     });
 
@@ -29,10 +29,11 @@ const SingleDetails = () => {
     const handleInterval = (
         value: "m1" | "m5" | "m15" | "m30" | "h1 " | "h2" | "h6" | "h12" | "d1"
     ) => {
+        
         setValue(value);
     };
 
-    const singleHistory = getBitcoinHistory(slug, interval)
+    const singleHistory = getBitcoinHistory(slug, interval);
 
     const { isLoading, data, error } = useQuery({
         queryKey: ["singlecoindata", { slug }],
@@ -221,7 +222,7 @@ const SingleDetails = () => {
 
                     </Grid>
                     <Grid item xs={5}>
-                        <SingleHistory historyData={singleHistory} handleChange={handleInterval} interval={interval} />
+                        <SingleHistory historyData={singleHistory} handleChange={handleInterval} interval={interval}/>
 
                     </Grid>
                 </Grid>
